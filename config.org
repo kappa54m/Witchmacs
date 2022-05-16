@@ -153,6 +153,7 @@ One of the main selling points of Emacs! no Emacs distribution is complete witho
     (add-hook 'org-mode-hook
               '(lambda ()
                  (visual-line-mode 1))))
+    (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
   (use-package org-indent
     :diminish org-indent-mode)
@@ -395,9 +396,15 @@ Vim keybindings in Emacs. Please note that Witchmacs has NO other evil-mode comp
     :init
     (setq evil-want-keybinding nil)
     (setq evil-want-C-u-scroll t)
+    ; (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
+    (global-set-key (kbd "M-u") 'universal-argument)
     :config
-    (evil-mode 1))
+    (evil-mode 1)
+    (global-undo-tree-mode)
+    (evil-set-undo-system 'undo-tree)
+    )
 
+  ; Not working with emacs 27.1?
   ;(use-package evil-collection
   ;  :after evil
   ;  :ensure t
@@ -440,7 +447,16 @@ Switch window is a neat package because instead of having to painstakingly do C 
 	(setq switch-window-qwerty-shortcuts
 		  '("a" "s" "d" "f" "j" "k" "l"))
 	:bind
-	([remap other-window] . switch-window))
+	;([remap other-window] . switch-window)
+  ("C-x w" . switch-window)
+)
+
+
+(defun goto-prev-window ()
+  (interactive)
+  (other-window -1))
+
+(global-set-key (kbd "C-x O") 'goto-prev-window)
 #+END_SRC
 ** Initialize =ido= and =ido-vertical=
 *** Description
@@ -662,4 +678,9 @@ I use meghanada to provide very neat autocompletion when editing Java files. I u
 (add-hook 'python-mode-hook
     (lambda () (local-set-key (kbd "TAB") 'tab-to-tab-stop)))
 #+END_SRC
+** Korean/Hangul Support 
+#+begin_src emacs-lisp
+(setq default-input-method "korean-hangul")
+(global-set-key (kbd "<Hangul>") 'toggle-input-method)
+#+end_src
 

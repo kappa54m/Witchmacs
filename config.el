@@ -66,6 +66,7 @@
   (add-hook 'org-mode-hook
             '(lambda ()
                (visual-line-mode 1))))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
 (use-package org-indent
   :diminish org-indent-mode)
@@ -242,9 +243,15 @@
   :init
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
+  ; (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
+  (global-set-key (kbd "M-u") 'universal-argument)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  (global-undo-tree-mode)
+  (evil-set-undo-system 'undo-tree)
+  )
 
+; Not working with emacs 27.1?
 ;(use-package evil-collection
 ;  :after evil
 ;  :ensure t
@@ -263,16 +270,25 @@
       ("M-s" . avy-goto-char))
 
 (use-package switch-window
-      :ensure t
-      :config
-      (setq switch-window-input-style 'minibuffer)
-      (setq switch-window-increase 4)
-      (setq switch-window-threshold 2)
-      (setq switch-window-shortcut-style 'qwerty)
-      (setq switch-window-qwerty-shortcuts
-		'("a" "s" "d" "f" "j" "k" "l"))
-      :bind
-      ([remap other-window] . switch-window))
+	:ensure t
+	:config
+	(setq switch-window-input-style 'minibuffer)
+	(setq switch-window-increase 4)
+	(setq switch-window-threshold 2)
+	(setq switch-window-shortcut-style 'qwerty)
+	(setq switch-window-qwerty-shortcuts
+		  '("a" "s" "d" "f" "j" "k" "l"))
+	:bind
+	;([remap other-window] . switch-window)
+  ("C-x w" . switch-window)
+)
+
+
+(defun goto-prev-window ()
+  (interactive)
+  (other-window -1))
+
+(global-set-key (kbd "C-x O") 'goto-prev-window)
 
 (use-package ido
   :init
@@ -438,3 +454,6 @@
 
 (add-hook 'python-mode-hook
     (lambda () (local-set-key (kbd "TAB") 'tab-to-tab-stop)))
+
+(setq default-input-method "korean-hangul")
+(global-set-key (kbd "<Hangul>") 'toggle-input-method)
