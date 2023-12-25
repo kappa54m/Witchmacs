@@ -181,7 +181,7 @@
   :config
   (dashboard-setup-startup-hook)
   (setq dashboard-items '((recents . 5)))
-  (setq dashboard-banner-logo-title "W I T C H M A C S - The cutest Emacs distribution!")
+  (setq dashboard-banner-logo-title "VV I T C H M A C S")
   ;;(setq dashboard-startup-banner "~/.emacs.d/marivector.png")
   (setq dashboard-center-content t)
   (setq dashboard-show-shortcuts nil)
@@ -451,6 +451,8 @@
               (meghanada-mode t)))
   (setq meghanada-java-path "java")
   (setq meghanada-maven-path "mvn"))
+
+(set-frame-font "Menlo 16" nil t)
 
 (add-hook 'python-mode-hook
     (lambda () (local-set-key (kbd "TAB") 'tab-to-tab-stop)))

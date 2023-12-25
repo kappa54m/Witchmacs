@@ -314,7 +314,7 @@ The frontend of Witchmacs; without this there'd be no Marisa in your Emacs start
     :config
     (dashboard-setup-startup-hook)
     (setq dashboard-items '((recents . 5)))
-    (setq dashboard-banner-logo-title "W I T C H M A C S - The cutest Emacs distribution!")
+    (setq dashboard-banner-logo-title "VV I T C H M A C S")
     ;;(setq dashboard-startup-banner "~/.emacs.d/marivector.png")
     (setq dashboard-center-content t)
     (setq dashboard-show-shortcuts nil)
@@ -675,8 +675,10 @@ I use meghanada to provide very neat autocompletion when editing Java files. I u
 #+END_SRC
 * My Config
 #+BEGIN_SRC emacs-lisp
-(add-hook 'python-mode-hook
-    (lambda () (local-set-key (kbd "TAB") 'tab-to-tab-stop)))
+  (set-frame-font "Menlo 16" nil t)
+
+  (add-hook 'python-mode-hook
+      (lambda () (local-set-key (kbd "TAB") 'tab-to-tab-stop)))
 #+END_SRC
 ** Korean/Hangul Support 
 #+begin_src emacs-lisp
