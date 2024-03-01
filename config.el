@@ -243,12 +243,13 @@
   :init
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll t)
-  ; (define-key evil-visual-state-map (kbd "C-u") 'evil-scroll-up)
   (global-set-key (kbd "M-u") 'universal-argument)
   :config
   (evil-mode 1)
   (global-undo-tree-mode)
   (evil-set-undo-system 'undo-tree)
+  ; Make Shift-u also scroll up
+  (define-key evil-motion-state-map (kbd "U") 'evil-scroll-up)
   )
 
 ; Not working with emacs 27.1?
