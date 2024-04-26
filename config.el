@@ -66,7 +66,10 @@
   (add-hook 'org-mode-hook
             '(lambda ()
                (visual-line-mode 1))))
+
   (setq org-src-preserve-indentation t)
+  (define-key org-mode-map (kbd "<tab>") 'org-cycle)
+
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
 
 (use-package org-indent
