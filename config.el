@@ -68,9 +68,24 @@
                (visual-line-mode 1))))
 
   (setq org-src-preserve-indentation t)
+  ; Resolves macOS issue where TAB executes org-cycle only in insert mode
   (define-key org-mode-map (kbd "<tab>") 'org-cycle)
 
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
+
+  ; Copy link under cursor using C-x C-l
+
+  (defun farynaio/org-link-copy (&optional arg)
+    "Extract URL from org-mode link and add it to kill ring."
+    (interactive "P")
+    (let* ((link (org-element-lineage (org-element-context) '(link) t))
+            (type (org-element-property :type link))
+            (url (org-element-property :path link))
+            (url (concat type ":" url)))
+      (kill-new url)
+      (message (concat "Copied URL: " url))))
+
+  (define-key org-mode-map (kbd "C-x C-l") 'farynaio/org-link-copy)
 
 (use-package org-indent
   :diminish org-indent-mode)
